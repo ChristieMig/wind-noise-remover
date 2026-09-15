@@ -1,0 +1,32 @@
+# 第三方二进制与依赖（不入库，用 setup.ps1 / tools/fetch.js 自行获取）
+tools/ffmpeg/
+tools/ffmpeg-extract/
+tools/python/
+tools/deepfilternet/
+tools/models/
+tools/tmp/
+tools/get-pip.py
+
+# 凭据（千万不要提交）
+.gh_token
+*.token
+
+# 测试素材与产物
+test/eval_in/
+test/eval_out/
+test/素材/
+test/对比样本/
+test/race/
+test/*.csv
+test/*.wav
+test/*.mp4
+test/*.mkv
+test/*.png
+
+# 媒体文件（体积大，GitHub 单文件限 100MB）
+*.mp4
+*.mkv
+*.mov
+*.wav
+*.flac
+*.m4a
