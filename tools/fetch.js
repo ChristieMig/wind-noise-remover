@@ -2,8 +2,9 @@
 /**
  * 简易 HTTP(S) 下载器（带断点续传 / 重试 / 镜像回退）
  *
- * 为什么需要它：本机系统 schannel 的 TLS 是坏的（SEC_E_NO_CREDENTIALS），
- * PowerShell / curl / winget 都上不了 HTTPS，但 Node 自带 OpenSSL 正常。
+ * 为什么不用 PowerShell/curl：某些环境里系统 TLS 栈是坏的
+ * （Windows 上常见 schannel 报 SEC_E_NO_CREDENTIALS，或证书校验失败），
+ * 而 Node 自带 OpenSSL，配合 system-ca.js 能正常访问 HTTPS。
  * 另外访问 GitHub 时连接经常被重置，所以这里做三重保险：
  *   1) 断点续传：失败后从已下载的字节数继续（Range 请求）
  *   2) 重试：每个地址默认试 3 次，递增退避
@@ -12,6 +13,7 @@
  * 用法:
  *   node fetch.js <url> <输出文件> [--retries 3] [--no-mirror]
  */
+require('./system-ca.js');   // 先修好证书信任链，再发请求
 const fs = require('fs');
 const https = require('https');
 const http = require('http');
