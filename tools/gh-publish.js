@@ -21,6 +21,7 @@
  * token 权限：classic token 勾 repo；fine-grained token 需要 Contents: Read and write
  *           + Administration: Read and write（建仓库用）
  */
+require('./system-ca.js');   // 先修好证书信任链，再发请求
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
@@ -55,6 +56,7 @@ const FILE_LIST = [
   'setup.ps1',
   '.gitignore',
   'tools/fetch.js',
+  'tools/system-ca.js',
   'tools/gh-publish.js',
   'test/eval_chains.ps1',
   'test/eval_dfn.ps1',
